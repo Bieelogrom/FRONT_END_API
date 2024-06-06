@@ -8,7 +8,7 @@ function App() {
   const [senhaUsuario, setSenhaUsuario] = useState('');
   const [emailUsuario, setEmailUsuario] = useState('');
   const [telefoneUsuario, setTelefoneUsuario] = useState('');
-  const [identidadeUsuario, setIdentidadeUsuario] = useState('');
+  const [cpfUsuario, setCpfUsuario] = useState('');
   const [cepUsuario, setCepUsuario] = useState('');
   const [complementoUsuario, setComplementoUsuario] = useState('');
   const [dataNascimentoUsuario, setDataNascimentoUsuario] = useState('');
@@ -16,15 +16,15 @@ function App() {
   const [nacionalidadeUsuario, setNacionalidadeUsuario] = useState('');
   const [tipoDePerfilUsuario, setTipoDePerfilUsuario] = useState('');
 
-  const realizarCadastro = async (nomeUsuario, senhaUsuario, emailUsuario, telefoneUsuario, identidadeUsuario, cepUsuario, complementoUsuario, dataNascimentoUsuario, sexoUsuario, nacionalidadeUsuario, tipoDePerfilUsuario) => {
-    await fetch('http://localhost:8080/cadastrar', {
+  const realizarCadastro = async (nomeUsuario, senhaUsuario, emailUsuario, telefoneUsuario, cpfUsuario, cepUsuario, complementoUsuario, dataNascimentoUsuario, sexoUsuario, nacionalidadeUsuario, tipoDePerfilUsuario) => {
+    await fetch('http://localhost:8080/api/v1/usuario', {
       method: 'POST',
       body: JSON.stringify({
         nomeUsuario: nomeUsuario,
         senhaUsuario: senhaUsuario,
         emailUsuario: emailUsuario,
         telefoneUsuario: telefoneUsuario,
-        identidadeUsuario: identidadeUsuario,
+        cpfUsuario: cpfUsuario,
         cepUsuario: cepUsuario,
         complementoUsuario: complementoUsuario,
         dataNascimentoUsuario: dataNascimentoUsuario,
@@ -34,26 +34,33 @@ function App() {
       }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST,PATCH,OPTIONS'
       },
     })
-    let data = await response.json();
-    alert("Funcionou");
-    setNomeUsuario('');
-    setSenhaUsuario('');
-    setEmailUsuario('');
-    setTelefoneUsuario('');
-    setIdentidadeUsuario('');
-    setCepUsuario('');
-    setComplementoUsuario('');
-    setDataNascimentoUsuario('');
-    setSexoUsuario('');
-    setNacionalidadeUsuario('');
-    setTipoDePerfilUsuario('');
+      .then((response) => response.json())
+      .then((data) => {
+        alert("Funcionou");
+        setNomeUsuario('');
+        setSenhaUsuario('');
+        setEmailUsuario('');
+        setTelefoneUsuario('');
+        setCpfUsuario('');
+        setCepUsuario('');
+        setComplementoUsuario('');
+        setDataNascimentoUsuario('');
+        setSexoUsuario('');
+        setNacionalidadeUsuario('');
+        setTipoDePerfilUsuario('');
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    realizarCadastro(nomeUsuario, senhaUsuario, emailUsuario, telefoneUsuario, identidadeUsuario, cepUsuario, complementoUsuario, dataNascimentoUsuario, sexoUsuario, nacionalidadeUsuario, tipoDePerfilUsuario)
+    realizarCadastro(nomeUsuario, senhaUsuario, emailUsuario, telefoneUsuario, cpfUsuario, cepUsuario, complementoUsuario, dataNascimentoUsuario, sexoUsuario, nacionalidadeUsuario, tipoDePerfilUsuario)
   }
 
   return (
@@ -78,7 +85,7 @@ function App() {
           </FormularioDiv>
           <FormularioDiv>
             <FormularioLabel>Identidade do Usuário</FormularioLabel>
-            <FormularioInput type='text' value={identidadeUsuario} required onChange={(e) => setIdentidadeUsuario(e.target.value)} />
+            <FormularioInput type='text' value={cpfUsuario} required onChange={(e) => setCpfUsuario(e.target.value)} />
           </FormularioDiv>
           <FormularioDiv>
             <FormularioLabel>CEP do Usuário</FormularioLabel>
