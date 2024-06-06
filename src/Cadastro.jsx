@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { FormularioWrapper, FormularioLabel, FormularioDiv, FormularioInput, Formolario } from './Style'
 
-function App() {
+function Cadastro() {
   const [nomeUsuario, setNomeUsuario] = useState('');
   const [senhaUsuario, setSenhaUsuario] = useState('');
   const [emailUsuario, setEmailUsuario] = useState('');
@@ -129,4 +129,4 @@ function App() {
   )
 }
 
-export default App
+export default Cadastro

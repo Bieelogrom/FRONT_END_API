@@ -25,11 +25,11 @@ export const GlobalStyle = createGlobalStyle`
 
 export const Formolario = styled.form`
     height: 100%;
-    width: 100%;
+    width: 30%;
 `
 
 export const FormularioWrapper = styled.main`
-    width: 50%;
+    width: 100%;
     height: fit-content;
     background: #403F4C;
     padding: 14px;
