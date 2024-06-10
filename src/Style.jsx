@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
+import { IMaskInput } from "react-imask";
 
 export const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
@@ -40,7 +41,7 @@ export const FormularioLabel = styled.label`
     font-size: 14px;
 `
 
-export const FormularioInput = styled.input`
+export const FormularioInput = styled(IMaskInput)`
     width: 100%;
     height: 50%;
 `
