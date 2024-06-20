@@ -1,15 +1,29 @@
 import { useEffect, useState } from 'react';
 import { FormularioWrapper, FormularioLabel, FormularioDiv, FormularioInput, Formolario } from './Style'
+import axios from 'axios'
 
 function Login() {
     const [emailUsuario, setEmailUsuario] = useState('');
     const [senhaUsuario, setSenhaUsuario] = useState('');
 
-    
-
+    const realizarCadastro = (emailUsuario, senhaUsuario) => {
+        axios.post("http://localhost:8080/API/login", {
+            emailUsuario:`${emailUsuario}`,
+            senhaUsuario:`${senhaUsuario}`
+        }, {
+            withCredentials: true
+        })
+            .then(function (response) {
+                alert(response.data)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
 
     const handleSubmit = (e) => {
-        e.preventDefault;
+        e.preventDefault();
+        realizarCadastro(emailUsuario, senhaUsuario)
     }
 
 

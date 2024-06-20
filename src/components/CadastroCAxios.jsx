@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import { FormularioWrapper, FormularioLabel, FormularioDiv, FormularioInput, Formolario } from './Style'
 import axios from 'axios';
 

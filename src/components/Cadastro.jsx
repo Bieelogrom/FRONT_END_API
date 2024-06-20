@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import axios from 'axios';
 
 import { FormularioWrapper, FormularioLabel, FormularioDiv, FormularioInput, Formolario } from './Style'
 
 function Cadastro() {
   const [nomeUsuario, setNomeUsuario] = useState('');
+  const [sobrenomeUsuario, setSobrenomeUsuario] = useState('');
   const [senhaUsuario, setSenhaUsuario] = useState('');
   const [emailUsuario, setEmailUsuario] = useState('');
   const [telefoneUsuario, setTelefoneUsuario] = useState('');
@@ -16,52 +16,35 @@ function Cadastro() {
   const [sexoUsuario, setSexoUsuario] = useState('');
   const [nacionalidadeUsuario, setNacionalidadeUsuario] = useState('');
   const [tipoDePerfilUsuario, setTipoDePerfilUsuario] = useState('');
+  const [logradouro, setLogradouro] = useState('');
+  const [bairro, setBairro] = useState('');
+  const [uf, setUf] = useState('');
+  const [numero, setNumero] = useState('')
 
-  const realizarCadastro = async (nomeUsuario, senhaUsuario, emailUsuario, telefoneUsuario, cpfUsuario, cepUsuario, complementoUsuario, dataNascimentoUsuario, sexoUsuario, nacionalidadeUsuario, tipoDePerfilUsuario) => {
-    await fetch('http://localhost:8080/api/v1/usuario', {
-      method: 'POST',
-      body: JSON.stringify({
-        nomeUsuario: nomeUsuario,
-        senhaUsuario: senhaUsuario,
-        emailUsuario: emailUsuario,
-        telefoneUsuario: telefoneUsuario,
-        cpfUsuario: cpfUsuario,
-        cepUsuario: cepUsuario,
-        complementoUsuario: complementoUsuario,
-        dataNascimentoUsuario: dataNascimentoUsuario,
-        sexoUsuario: sexoUsuario,
-        nacionalidadeUsuario: nacionalidadeUsuario,
-        tipoDePerfilUsuario: tipoDePerfilUsuario
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST,PATCH,OPTIONS'
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        alert("Funcionou");
-        setNomeUsuario('');
-        setSenhaUsuario('');
-        setEmailUsuario('');
-        setTelefoneUsuario('');
-        setCpfUsuario('');
-        setCepUsuario('');
-        setComplementoUsuario('');
-        setDataNascimentoUsuario('');
-        setSexoUsuario('');
-        setNacionalidadeUsuario('');
-        setTipoDePerfilUsuario('');
-      })
-      .catch((err) => {
-        console.log(err.message)
-      })
-  }
+
+  const realizarCadastro = (nome, sobrenome, senha, email, telefone, cpf, codPostal, complement, data, sexo, nacionalidade, tipo, logradouro, bairro, uf, numero) => {
+    axios.post("http://localhost:8080/API/salvarUsuario", {
+        nacionalidadeUsuario: nacionalidade,
+        tipoDePerfilUsuario: tipo,
+        nomeUsuario: nome,
+        sobrenomeUsuario: sobrenome,
+        emailUsuario: email,
+        senhaUsuario: senha,
+        cpfUsuario: cpf,
+        dataNascimentoUsuario: data,
+        sexoUsuario: sexo,
+        enderecoDto: {
+            cep: codPostal,
+            logradouro: logradouro,
+            bairro: bairro,
+            complemento: complement,
+            numero: numero,
+            uf: uf,
+    }})}
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    realizarCadastro(nomeUsuario, senhaUsuario, emailUsuario, telefoneUsuario, cpfUsuario, cepUsuario, complementoUsuario, dataNascimentoUsuario, sexoUsuario, nacionalidadeUsuario, tipoDePerfilUsuario)
+    realizarCadastro(nomeUsuario,sobrenomeUsuario, senhaUsuario, emailUsuario, telefoneUsuario, cpfUsuario, cepUsuario, complementoUsuario, dataNascimentoUsuario, sexoUsuario, nacionalidadeUsuario, tipoDePerfilUsuario, logradouro, bairro, uf, numero)
   }
 
   return (
@@ -91,6 +74,18 @@ function Cadastro() {
           <FormularioDiv>
             <FormularioLabel>CEP do Usuário</FormularioLabel>
             <FormularioInput type='text' value={cepUsuario} mask="00000-000" placeholder="Digite seu cep" required onChange={(e) => setCepUsuario(e.target.value)} />
+          </FormularioDiv>
+          <FormularioDiv>
+            <FormularioLabel>Logradouro do Usuário</FormularioLabel>
+            <FormularioInput type='text' value={logradouro} mask="00000-000" placeholder="Logradouro" required  />
+          </FormularioDiv>
+          <FormularioDiv>
+            <FormularioLabel>Bairro do Usuário</FormularioLabel>
+            <FormularioInput type='text' value={bairro} mask="00000-000" placeholder="Bairro" required />
+          </FormularioDiv>
+          <FormularioDiv>
+            <FormularioLabel>UF do Usuário</FormularioLabel>
+            <FormularioInput type='text' value={uf} mask="00000-000" placeholder="Unidade Federal" required />
           </FormularioDiv>
           <FormularioDiv>
             <FormularioLabel>Complemento do Usuário</FormularioLabel>

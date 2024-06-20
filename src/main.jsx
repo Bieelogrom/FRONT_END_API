@@ -1,16 +1,28 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import CadastroCAxios from './CadastroCAxios.jsx'
-import Cadastro from './Cadastro.jsx'
-import Login from './Login.jsx'
-import { GlobalStyle } from './Style.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Principal from './pages/principal.jsx'
+import Logado from './pages/logado.jsx'
+import { GlobalStyle } from './components/Style.jsx';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Principal/>,
+  },
+  {
+    path: "/logado",
+    element: <Logado/>
+  }
+]);
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Cadastro />
-    <Login />
-    <GlobalStyle/>
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )
