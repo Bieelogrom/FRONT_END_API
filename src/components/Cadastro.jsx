@@ -42,8 +42,19 @@ function Cadastro() {
             uf: uf,
     }})}
 
+    const BuscarDadosCep = (cep) => {
+      fetch(`https://viacep.com.br/ws/${cep}/json/`).then(res => res.json()).then(data => {
+        setLogradouro(data.logradouro)
+        setBairro(data.bairro)
+        setUf(data.uf)
+        setNumero(data.ddd)
+        console.log(data)
+      });
+    }
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    BuscarDadosCep(cepUsuario)
     realizarCadastro(nomeUsuario,sobrenomeUsuario, senhaUsuario, emailUsuario, telefoneUsuario, cpfUsuario, cepUsuario, complementoUsuario, dataNascimentoUsuario, sexoUsuario, nacionalidadeUsuario, tipoDePerfilUsuario, logradouro, bairro, uf, numero)
   }
 
@@ -77,15 +88,15 @@ function Cadastro() {
           </FormularioDiv>
           <FormularioDiv>
             <FormularioLabel>Logradouro do Usuário</FormularioLabel>
-            <FormularioInput type='text' value={logradouro} mask="00000-000" placeholder="Logradouro" required  />
+            <FormularioInput type='text' value={logradouro} mask="00000-000" placeholder="Logradouro"  onChange={(e) => setLogradouro(e.target.value)} />
           </FormularioDiv>
           <FormularioDiv>
             <FormularioLabel>Bairro do Usuário</FormularioLabel>
-            <FormularioInput type='text' value={bairro} mask="00000-000" placeholder="Bairro" required />
+            <FormularioInput type='text' value={bairro} mask="00000-000" placeholder="Bairro"  onChange={(e) => setBairro(e.target.value)} />
           </FormularioDiv>
           <FormularioDiv>
             <FormularioLabel>UF do Usuário</FormularioLabel>
-            <FormularioInput type='text' value={uf} mask="00000-000" placeholder="Unidade Federal" required />
+            <FormularioInput type='text' value={uf} mask="00000-000" placeholder="Unidade Federal"  onChange={(e) => setUf(e.target.value)}/>
           </FormularioDiv>
           <FormularioDiv>
             <FormularioLabel>Complemento do Usuário</FormularioLabel>
