@@ -8,25 +8,20 @@ function Login() {
 
     const realizarCadastro = (emailUsuario, senhaUsuario) => {
         axios.post("http://localhost:8080/API/login", {
-            emailUsuario:`${emailUsuario}`,
-            senhaUsuario:`${senhaUsuario}`
-        }, {
-            withCredentials: true
+            email: `${emailUsuario}`,
+            senha: `${senhaUsuario}`
+        }).then(function (response) {
+            alert(response.data)
         })
-            .then(function (response) {
-                alert(response.data)
-            })
-            .catch(function (error) {
+        .catch(function (error) {
                 console.log(error)
-            })
+        })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         realizarCadastro(emailUsuario, senhaUsuario)
     }
-
-
 
     return (
         <>

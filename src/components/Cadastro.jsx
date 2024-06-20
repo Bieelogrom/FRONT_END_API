@@ -40,7 +40,11 @@ function Cadastro() {
             complemento: complement,
             numero: numero,
             uf: uf,
-    }})}
+    }}).then(function (response){
+      alert("Cadastro realizado com sucesso!")
+    }).catch(function (error){
+      alert("Erro")
+    })}
 
     const BuscarDadosCep = (cep) => {
       fetch(`https://viacep.com.br/ws/${cep}/json/`).then(res => res.json()).then(data => {
